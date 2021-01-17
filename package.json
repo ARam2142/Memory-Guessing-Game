@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/ARam2142/Memory-Guessing-Game/issues"
   },
-  "homepage": "https://github.com/ARam2142/Memory-Guessing-Game#readme"
+  "homepage": "https://github.com/ARam2142/Memory-Guessing-Game#readme",
+  "dependencies": {
+    "prompt-confirm": "^2.0.4"
+  }
 }
