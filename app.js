@@ -2,8 +2,8 @@
 /*Logic modified from peterjacobson guessing game on github*/
 //npm installs
 const readline = require('readline');
-const Confirm = require('prompt-confirm');
-const prompt = new Confirm("Want to play again?");
+//const Confirm = require('prompt-confirm');
+//const prompt = new Confirm("Want to play again?");
 
 const question = readline.createInterface({
     input: process.stdin,
@@ -13,7 +13,7 @@ const question = readline.createInterface({
 //generates random number between 1 and 10
 let randomNum = Math.floor(Math.random() * 10) + 1;
 var attempts = 3;
-
+var val = ""
 question.setPrompt("I am thinking of a number between 1 and 10, what is it?");
 question.prompt();
 question.on('line', function (guess) {
@@ -21,12 +21,15 @@ question.on('line', function (guess) {
 
     //logic to check which are correct and not correct
     if (userGuess < randomNum) {
-        console.log("your guess is too low");
-        console.log("you have " + attempts + " attempts left")
+        // console.log("your guess is too low");
+        console.log("Your guess is too low and you have " + attempts + " attempts left")
     } else if (userGuess > randomNum) {
-        console.log("your guess is too high");
-        console.log("You have " + attempts + " attempts left")
-    } else {
+        // console.log("your guess is too high");
+        console.log("Your guess is too high and you have " + attempts + " attempts left")
+    } else if(!Number.isNaN("")) {
+        console.log("Thats not a number moron! You have " + attempts + " attempts left");
+    }
+    else {
         console.log("CORRECT!");
         process.exit(0);
     }
