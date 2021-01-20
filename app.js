@@ -1,49 +1,59 @@
 //NODE version
 /*Logic modified from peterjacobson guessing game on github*/
-//npm installs
 const readline = require('readline');
-//const Confirm = require('prompt-confirm');
-//const prompt = new Confirm("Want to play again?");
+var log = console.log;
 
-const question = readline.createInterface({
+const rl = readline.createInterface({
     input: process.stdin,
-    output: process.stdout
-})
-
-//generates random number between 1 and 10
-let randomNum = Math.floor(Math.random() * 10) + 1;
-var attempts = 3;
-var val = ""
-question.setPrompt("I am thinking of a number between 1 and 10, what is it?");
-question.prompt();
-question.on('line', function (guess) {
-    var userGuess = parseInt(guess);
-
-    //logic to check which are correct and not correct
-    if (userGuess < randomNum) {
-        // console.log("your guess is too low");
-        console.log("Your guess is too low and you have " + attempts + " attempts left")
-    } else if (userGuess > randomNum) {
-        // console.log("your guess is too high");
-        console.log("Your guess is too high and you have " + attempts + " attempts left")
-    } else if(!Number.isNaN("")) {
-        console.log("Thats not a number moron! You have " + attempts + " attempts left");
-    }
-    else {
-        console.log("CORRECT!");
-        process.exit(0);
-    }
-
-    attempts--
-    if (attempts == 0) {
-        console.log("GAME OVER");
-        console.log("You have no attempts left");
-        process.exit(0);
-    }
-
-    question.prompt()
-
+    output: process.stdout,
+    prompt: 'OHAI> '
 });
+
+var attempts = 3;
+let randomNum = Math.floor(Math.random() * 10) + 1;
+var i =0;
+var recursiveAsyncReadLine = function () {
+    rl.question('What number am i thinking of?', function (guess) {
+        //while (i >= 3) {
+            var userGuess = parseInt(guess);
+            if (userGuess < randomNum) {
+                console.log("Your guess is too low you have " + attempts + " left")
+                console.log("--------------------------------------------------------------------");
+            } else if (userGuess > randomNum) {
+                console.log("Your guess is too high you have " + attempts + " left")
+                console.log("--------------------------------------------------------------------");
+            } else if ((!Number.isNaN(""))) {
+                console.log("Thats not a number moron! you have " + attempts + " left");
+                console.log("--------------------------------------------------------------------");
+            } else {
+                console.log("CORRECT!");
+                console.log("Keep playing?");
+                process.exit(0);
+            }
+
+            attempts--
+            if (attempts == 0) {
+                console.log("GAME OVER!")
+                console.log("You have " + attempts + " left")
+                rl.question('Continue, y for yes or n for no?', function (response) {
+                    if (response == "y") {
+                        return //recursiveAsyncReadLine();
+                    } else {
+                        process.exit(0);
+                    }
+                });
+
+            }
+        //}
+        recursiveAsyncReadLine()
+
+
+    });
+};
+recursiveAsyncReadLine();
+
+
+
 
 //guessNumber(randomNum)
     // for (var i = 0; i < 10; i++) {
